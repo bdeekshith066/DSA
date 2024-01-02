@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define MAX_SIZE 100
@@ -12,17 +11,17 @@ struct Stack {
 
 // Function to initialize the stack
 void initialize(struct Stack* stack) {
-    (*stack).top = -1;
+    stack->top = -1;
 }
 
 // Function to check if the stack is empty
 int isEmpty(struct Stack* stack) {
-    return (*stack).top == -1;
+    return stack->top == -1;
 }
 
 // Function to check if the stack is full
 int isFull(struct Stack* stack) {
-    return (*stack).top == MAX_SIZE - 1;
+    return stack->top == MAX_SIZE - 1;
 }
 
 // Function to push an element onto the stack
@@ -31,16 +30,16 @@ void push(struct Stack* stack, char value) {
         printf("Stack Overflow: Cannot push %c, the stack is full.\n", value);
         return;
     }
-    (*stack).items[++(*stack).top] = value;
+    stack->items[++stack->top] = value;
 }
 
 // Function to pop an element from the stack
 char pop(struct Stack* stack) {
     if (isEmpty(stack)) {
         printf("Stack Underflow: Cannot pop from an empty stack.\n");
-        return '\0'; // Return a sentinel value indicating an error
+        return '\0';
     }
-    return (*stack).items[(*stack).top--];
+    return stack->items[stack->top--];
 }
 
 // Function to reverse a string using a stack

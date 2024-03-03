@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *head = NULL;
+
+void insertatbeginning()
+{
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    if(newnode == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+    printf("Enter the data you want to insert: ");
+    scanf("%d", &newnode->data);
+    newnode->next = head;
+    head = newnode;
+}
+
+void insertatend()
+{
+    struct node *temp, *newnode;
+    newnode = (struct node*) malloc(sizeof(struct node));
+    if(newnode == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+    printf("Enter the data you want to insert: ");
+    scanf("%d", &newnode->data);
+    newnode->next = NULL;
+    if (head == NULL) {
+        head = newnode;
+        return;
+    }
+    temp = head;
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+
+void insertatspecificposition()
+{
+    int pos, i = 1, count = 0;
+    struct node *temp, *newnode;
+    newnode = (struct node*) malloc(sizeof(struct node));
+    if(newnode == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+    printf("Enter the position: ");
+    scanf("%d", &pos);
+    temp = head;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    if(pos > count+1 || pos < 1)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+    printf("Enter the data: ");
+    scanf("%d", &newnode->data);
+    if(pos == 1) {
+        newnode->next = head;
+        head = newnode;
+        return;
+    }
+    temp = head;
+    while(i < pos-1)
+    {
+        temp = temp->next;
+        i++;
+    }
+    newnode->next = temp->next;
+    temp->next = newnode;
+}
+
+void display() {
+    struct node *temp = head;
+    printf("Linked List: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice;
+    while(1) {
+        printf("\n1. Insert at beginning\n");
+        printf("2. Insert at end\n");
+        printf("3. Insert at specific position\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch(choice) {
+            case 1:
+                insertatbeginning();
+                break;
+            case 2:
+                insertatend();
+                break;
+            case 3:
+                insertatspecificposition();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Invalid choice! Please enter a number between 1 and 5.\n");
+        }
+    }
+    return 0;
+}
